@@ -1,4 +1,5 @@
 MSC (Major SSH Crisis)
+
 FOR EDUCATIONAL PURPOSES ONLY!
 
 Welcome to the SSH brute force worm MSC! Make sure to review code and make neccessary changes to your needs.
